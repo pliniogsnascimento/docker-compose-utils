@@ -1,0 +1,39 @@
+version: '3.5'
+
+networks:
+  ecommerce:
+    name: ecommerce
+    driver: bridge
+
+services:
+  mongodb:
+    image: mongo:latest
+    
+    volumes:
+      - data01:/var/lib/mongodb
+      # - type: volume
+      #   source: ecommerce
+      #   target: /data/db
+      #   volume:
+      #     nocopy: true
+      # # - type: bind
+      #   source: /var/lib/mongodb/
+      #   target: /opt/ecommerce/static
+
+    networks:
+      - ecommerce
+        # aliases:
+        # - ecommerce
+
+    ports:
+      6000:
+    
+    container_name: mongodb
+    restart: always
+
+volumes:
+  ecommerce:
+    # - type: volume
+    #   source: /var/lib/docker/volumes/ecommerce/data
+      # target: 
+      
