@@ -5,9 +5,12 @@ services:
     image: prom/prometheus
     container_name: prometheus
     volumes:
-      - path/to-your/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./config/prometheus.rules.yml:/etc/prometheus/prometheus.rules.yml
     ports:
       - "9090:9090"
+    networks:
+      - "monitoring"
     
   grafana:
     image: grafana/grafana
@@ -15,6 +18,12 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - path/to-your/grafana.ini:/etc/grafana/grafana.ini
-      - path/to-your/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
-    links:
+    #   - path/to-your/grafana.ini:/etc/grafana/grafana.ini
+      - ./config/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+    # links:
+    networks:
+      - "monitoring"
+
+networks:
+  monitoring:
+    name: "monitoring"
