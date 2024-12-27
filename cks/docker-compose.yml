@@ -1,0 +1,10 @@
+services:
+  etcd:
+    build:
+      context: .
+      dockerfile: etcd.dockerfile
+    command:
+      - /bin/sh
+      - -c
+      - |
+        sleep 3600s
